@@ -5,24 +5,43 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import './index.css';
 
-function Listing(props) {
+const useStyles = makeStyles(theme => ({
+    header: {
+        marginBottom: theme.spacing(3)
+    },
+    card: {
+        marginRight: theme.spacing(2)
+    }
+}))
+
+function Header(props) {
+    const css = useStyles()
     return (
-        <li >
-            <Card>
+        <Typography className={css.header} variant="h1" align="center">Listings</Typography>
+
+    )
+}
+
+function Listing(props) {
+    const css = useStyles()
+    return (
+        <Grid>
+            <Card className={css.card}>
                 <CardContent>
-                    <h3>
+                    <Typography variant="h4">
                         {props.title}
-                    </h3>
-                    <h5>
-                        {props.current_bid}
-                    </h5>
+                    </Typography>
+                    <Typography variant="h5">
+                        Current bid: ${props.current_bid}
+                    </Typography>
                 </CardContent>
             </Card>
             
-        </li>
+        </Grid>
     )
 }
 
@@ -58,10 +77,12 @@ class Main extends React.Component {
         })
         return (
             <div>
-                <h1>Listings</h1>
-                <ul>
+                <Header></Header>
+                <Grid container justify="center" spacing={2}>
                     {auction}
-                </ul>
+                </Grid>
+                    
+                
             </div>
         )
     }
